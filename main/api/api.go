@@ -48,7 +48,7 @@ func GetReservation(c *gin.Context) {
 		for i, col := range columns {
 			var v interface{}
 			val := values[i]
-			b, ok := val.([]byte) // []byte 타입으로 interface를 가져옴
+			b, ok := val.([]byte) // []byte 타입으로 interface를 가져옴 ( 인터페이스는 모든 자료형이 들어감 ) ( 값, 타입맞는지 Bool )
 			if ok {
 				v = string(b)
 				tmp_struct[col] = fmt.Sprintf("%s", v)
