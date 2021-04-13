@@ -87,7 +87,6 @@ export default function CalendarComp(props) {
 
   const createSchedules = (event) => {
     const calendarInstance = calendarRef.current.getInstance();
-    console.log(event);
 
     var schedule = {
       id: "1",
@@ -110,9 +109,7 @@ export default function CalendarComp(props) {
 
   const deleteSchedule = (event) => {
     const calendarInstance = calendarRef.current.getInstance();
-    var schedule = event.schedule;
-
-    calendarInstance.deleteSchedule(schedule.id);
+    calendarInstance.deleteSchedule(event.schedule.id, event.schedule.calendarId);
   };
 
   const MyComponent = () => (
@@ -122,14 +119,14 @@ export default function CalendarComp(props) {
       height="900px"
       calendars={[
         {
-          id: "0",
+          id: "IDAM",
           name: "IDAM",
           bgColor: "#9e5fff",
           borderColor: "#9e5fff",
         },
         {
           id: "SSD",
-          name: "Company",
+          name: "SSD",
           bgColor: "#00a9ff",
           borderColor: "#00a9ff",
         },
@@ -144,11 +141,9 @@ export default function CalendarComp(props) {
       schedules={[
         {
           id: "1",
-          calendarId: "0",
+          calendarId: "IDAM",
           title: "라이브커머스 회의",
-          body: "SSD",
           category: "time",
-          dueDateClass: "",
           start: today.toISOString(),
           end: getDate("hours", today, 3, "+").toISOString(),
         },

@@ -12,9 +12,10 @@ export default class App extends Component {
 
     return (
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/meeting/reservation" component={CalendarComp}></Route>
-        </Switch>
+          <Switch>
+            <Route exact path="/meeting/reservation" component={CalendarComp}></Route>
+            <Route path="/" component={CalendarComp}></Route>
+          </Switch>
       </BrowserRouter>
     );
   }
