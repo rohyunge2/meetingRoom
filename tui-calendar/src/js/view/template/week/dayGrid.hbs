@@ -1,0 +1,39 @@
+<div class="{{CSS_PREFIX}}{{viewName}}-left {{CSS_PREFIX}}left" style="border-right: {{styles.leftBorderRight}}; width: {{styles.leftWidth}}; background-color: {{styles.leftBackgroundColor}}; padding-right: {{styles.leftPaddingRight}};">
+    {{{dayGridTitle-tmpl viewName}}}
+</div>
+<div class="{{CSS_PREFIX}}{{viewName}}-right {{CSS_PREFIX}}right">
+    <div class="{{CSS_PREFIX}}container">
+        <div class="{{CSS_PREFIX}}weekday-grid">
+        {{#each days ~}}
+            <div class="{{CSS_PREFIX}}weekday-grid-line"
+                style="left:{{left}}%; width:{{width}}%; background-color: {{backgroundColor}};
+                    border-right: {{@root.styles.borderRight}};
+                    text-align: center;
+                    padding: 8px 0 0 0;
+            ">대회의실</div>
+            <div class="{{CSS_PREFIX}}weekday-grid-line"
+                style="left:{{left2}}%; width:{{width}}%; background-color: {{backgroundColor}};
+                        text-align: center;
+                        padding: 8px 0 0 0;
+                    {{#unless @last}}
+                    border-right: {{@root.styles.borderRight}};
+                    {{/unless}}
+            ">소회의실</div>
+        {{/each ~}}
+
+        {{#if @root.showExpandableButton}}
+        {{#each days ~}}
+            {{#if @root.collapsed}}
+                {{#if hiddenSchedules}}
+                    <span class="{{CSS_PREFIX}}weekday-exceed-in-week" style="z-index: 1; right:{{getRight left width}}%;" data-index="{{@key}}">{{{weekGridFooterExceed-tmpl hiddenSchedules}}}</span>
+                {{/if}}
+            {{else}}
+                {{#fi @key '===' @root.collapseBtnIndex}}
+                    <span class="{{CSS_PREFIX}}weekday-collapse-btn" style="z-index: 1; right:{{getRight left width}}%;">{{{collapseBtnTitle-tmpl}}}</span>
+                {{/fi}}
+            {{/if}}
+        {{/each ~}}
+        {{/if}}
+        </div>
+    </div>
+</div>
