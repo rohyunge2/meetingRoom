@@ -89,9 +89,11 @@ export default function CalendarComp(props) {
     const calendarInstance = calendarRef.current.getInstance();
 
     var schedule = {
-      id: "1",
+      id: new Date().getTime(),
       calendarId: event.calendarId,
       title: event.title,
+      userName: event.userName,
+      place: event.place,
       location: event.location,
       category: "time",
       start: event.start,
@@ -119,16 +121,40 @@ export default function CalendarComp(props) {
       height="900px"
       calendars={[
         {
-          id: "IDAM",
-          name: "IDAM",
-          bgColor: "#9e5fff",
-          borderColor: "#9e5fff",
+          id: "MD",
+          name: "MD",
+          bgColor: "#42a5f5",
+          borderColor: "#42a5f5",
+        },
+        {
+          id: "MAD",
+          name: "MAD",
+          bgColor: "#ab47bc",
+          borderColor: "#ab47bc",
+        },
+        {
+          id: "ITD",
+          name: "ITD",
+          bgColor: "#ff7043",
+          borderColor: "#ff7043",
         },
         {
           id: "SSD",
           name: "SSD",
-          bgColor: "#00a9ff",
-          borderColor: "#00a9ff",
+          bgColor: "#26a69a",
+          borderColor: "#26a69a",
+        },
+        {
+          id: "RD",
+          name: "RD",
+          bgColor: "#5c6bc0",
+          borderColor: "#5c6bc0",
+        },
+        {
+          id: "IDAM",
+          name: "IDAM",
+          bgColor: "#ec407a",
+          borderColor: "#ec407a",
         },
       ]}
       taskView={false}
@@ -141,8 +167,10 @@ export default function CalendarComp(props) {
       schedules={[
         {
           id: "1",
-          calendarId: "IDAM",
+          calendarId: "SSD",
           title: "라이브커머스 회의",
+          userName: "노영의",
+          place: "2",
           category: "time",
           start: today.toISOString(),
           end: getDate("hours", today, 3, "+").toISOString(),
