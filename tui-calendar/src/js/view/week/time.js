@@ -212,6 +212,9 @@ Time.prototype.getScheduleViewBound = function(viewModel, options) {
     var boundX = this._getScheduleViewBoundX(viewModel, options);
     var boundY = this._getScheduleViewBoundY(viewModel, options);
     var schedule = viewModel.model;
+    
+    var isEnd = ( (schedule.end.getUTCTime()) - (new Date().getTime()) < 0 ? "opacity: 0.5;" : "" )
+    schedule.customStyle = isEnd;
 
     var isReadOnly = util.pick(schedule, 'isReadOnly') || false;
     var travelBorderColor = schedule.isFocused ? '#ffffff' : schedule.borderColor;
@@ -222,7 +225,7 @@ Time.prototype.getScheduleViewBound = function(viewModel, options) {
     return util.extend(
         {
             isReadOnly: isReadOnly,
-            travelBorderColor: travelBorderColor
+            travelBorderColor: travelBorderColor,
         },
         boundX,
         boundY

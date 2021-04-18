@@ -124,9 +124,9 @@ func GetReservationList(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message":         "get Success ",
+		"message":         "get Success",
 		"connect success": db,
-		"users":           final_result,
+		"reserves":        final_result,
 	})
 
 }
@@ -135,12 +135,13 @@ func AddReservation(c *gin.Context) {
 
 	meetingStartTime := c.DefaultPostForm("meetingStartTime", "current_timestamp()") // 회의 시작시간
 	meetingEndTime := c.DefaultPostForm("meetingEndTime", "current_timestamp()")     // 회의 종료시간
-	meetingPlaceCode := c.DefaultPostForm("meetingPlaceCode", "01")                  // 회의 장소 코드
-	meetingDepartmentCode := c.DefaultPostForm("meetingDepartmentCode", "01")        // 예약 부서 코드
+	meetingPlaceCode := c.DefaultPostForm("meetingPlaceCode", "1")                   // 회의 장소 코드
+	meetingDepartmentCode := c.DefaultPostForm("meetingDepartmentCode", "SSD")       // 예약 부서 코드
 	reserveUserName := c.DefaultPostForm("reserveUserName", "")                      // 예약자명
 	meetingContent := c.DefaultPostForm("meetingContent", "")                        // 회의 내용 ( 메모 )
 	regUser := reserveUserName
 	modUser := reserveUserName
+	var reserveId int64 = 0
 
 	db, err := sql.Open("mysql", "idam:BNSoft2020@@tcp(ultrawaveshop.co.kr:31001)/test")
 	if err != nil {
@@ -150,6 +151,14 @@ func AddReservation(c *gin.Context) {
 	result, err := db.Exec("INSERT INTO reservation (meeting_start_time, meeting_end_time, meeting_place_code, meeting_department_code, reserve_user_name, meeting_content, reg_user, mod_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", meetingStartTime, meetingEndTime, meetingPlaceCode, meetingDepartmentCode, reserveUserName, meetingContent, regUser, modUser)
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		id, err := result.LastInsertId()
+		if err != nil {
+			log.Fatal(err)
+		} else {
+			reserveId = id
+		}
+
 	}
 
 	defer db.Close()
@@ -164,6 +173,7 @@ func AddReservation(c *gin.Context) {
 		"regUser":               regUser,
 		"modUser":               modUser,
 		"result":                result,
+		"reserveId":             reserveId,
 		"err":                   err,
 	})
 }
@@ -210,9 +220,9 @@ func ModifyReservation(c *gin.Context) {
 
 func DeleteReservation(c *gin.Context) {
 
-	reserveId := c.PostForm("reserveId") // 예약 일련번호
+	reserveId := c.Param("reserveId") // 예약 일련번호
 	if reserveId == "" {
-		log.Fatal("no have reserveID")
+		log.Fatal("no have reserveId")
 	}
 
 	db, err := sql.Open("mysql", "idam:BNSoft2020@@tcp(ultrawaveshop.co.kr:31001)/test")

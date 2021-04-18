@@ -214,8 +214,10 @@ var themeConfig = {
     'week.timegridLeftTimezoneLabel.height': '40px',
     'week.timegridLeftAdditionalTimezone.backgroundColor': 'white',
 
-    'week.timegridOneHour.height': '52px',
-    'week.timegridHalfHour.height': '26px',
+    // 'week.timegridOneHour.height': '52px',
+    'week.timegridOneHour.height': '104px',
+    // 'week.timegridHalfHour.height': '26px',
+    'week.timegridHalfHour.height': '52px',
     'week.timegridHalfHour.borderBottom': 'none',
     'week.timegridHorizontalLine.borderBottom': '1px solid #e5e5e5',
 

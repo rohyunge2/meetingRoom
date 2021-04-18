@@ -386,13 +386,18 @@ var helpers = {
 
     'timegridDisplayPrimaryTime-tmpl': function(time) {
         var hour = time.hour;
-        var meridiem = hour >= 12 ? 'pm' : 'am';
+        // var meridiem = hour >= 12 ? 'pm' : 'am';
+        var meridiem = hour >= 12 ? '오후' : '오전';
 
         if (hour > 12) {
             hour = hour - 12;
         }
 
-        return hour + ' ' + meridiem;
+        // return hour + ' ' + meridiem;
+        if ( hour == 12 ){
+            return "정오";
+        }
+        return meridiem + " " + hour + ' 시';
     },
 
     'timegridDisplayTime-tmpl': function(time) {
